@@ -1,5 +1,5 @@
 class BaseNode:
 
-    def __init__(self):
+    def __init__(self, value=None):
         self.children = []
-        self.value = None
+        self.value = value

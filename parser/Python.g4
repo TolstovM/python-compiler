@@ -17,8 +17,8 @@ compound_stmt
     ;
 
 suite
-    : simple_stmt
-    | LINE_BREAK INDENT stmt+ DEDENT
+    : simple_stmt                           # suiteInLine
+    | LINE_BREAK INDENT stmt+ DEDENT        # suiteBlock
     ;
 
 elif_clause
@@ -43,13 +43,14 @@ simple_stmt
 
 small_stmt
     : IDENTIFIER op=ASSIGN assign_part                                                          # assign
+    | func_call                                                                                 # funcCall
     | RETURN argslist                                                                           # return
-    | PRINT OPEN_PAREN ((IDENTIFIER (COMMA IDENTIFIER)*) | SHORT_STRING) CLOSE_PAREN            # print
+    | PRINT OPEN_PAREN (IDENTIFIER | SHORT_STRING) CLOSE_PAREN                                  # print
     ;
 
 assign_part
     : expr                                              # assignExpr
-    | IDENTIFIER OPEN_PAREN argslist CLOSE_PAREN        # assignFuncCall
+    | func_call                                         # assignFuncCall
     ;
 
 
@@ -62,7 +63,7 @@ logical_test
     ;
 
 comparison
-    : comparison (LESS_THAN | GREATER_THAN | EQUALS | GT_EQ | LT_EQ | NOT_EQ_1 | NOT_EQ_2 /*| optional=NOT? IN | IS */ optional=NOT?) comparison
+    : comparison op=(LESS_THAN | GREATER_THAN | EQUALS | GT_EQ | LT_EQ | NOT_EQ_1 | NOT_EQ_2 /*| optional=NOT? IN | IS  optional=NOT?*/) comparison
     | expr
     ;
 

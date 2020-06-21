@@ -53,12 +53,21 @@ class PythonListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by PythonParser#suite.
-    def enterSuite(self, ctx:PythonParser.SuiteContext):
+    # Enter a parse tree produced by PythonParser#suiteInLine.
+    def enterSuiteInLine(self, ctx:PythonParser.SuiteInLineContext):
         pass
 
-    # Exit a parse tree produced by PythonParser#suite.
-    def exitSuite(self, ctx:PythonParser.SuiteContext):
+    # Exit a parse tree produced by PythonParser#suiteInLine.
+    def exitSuiteInLine(self, ctx:PythonParser.SuiteInLineContext):
+        pass
+
+
+    # Enter a parse tree produced by PythonParser#suiteBlock.
+    def enterSuiteBlock(self, ctx:PythonParser.SuiteBlockContext):
+        pass
+
+    # Exit a parse tree produced by PythonParser#suiteBlock.
+    def exitSuiteBlock(self, ctx:PythonParser.SuiteBlockContext):
         pass
 
 
@@ -113,6 +122,15 @@ class PythonListener(ParseTreeListener):
 
     # Exit a parse tree produced by PythonParser#assign.
     def exitAssign(self, ctx:PythonParser.AssignContext):
+        pass
+
+
+    # Enter a parse tree produced by PythonParser#funcCall.
+    def enterFuncCall(self, ctx:PythonParser.FuncCallContext):
+        pass
+
+    # Exit a parse tree produced by PythonParser#funcCall.
+    def exitFuncCall(self, ctx:PythonParser.FuncCallContext):
         pass
 
 

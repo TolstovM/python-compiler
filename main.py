@@ -8,6 +8,7 @@ def main():
     if a == b:
         print('hello')
     else:
+        max(a, b)
         print('loh')
         
     def max (x1, x2):
