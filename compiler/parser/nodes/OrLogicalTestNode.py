@@ -1,4 +1,5 @@
 from .BaseNode import BaseNode
+from compiler import GeneratorVisitor
 
 
 class OrLogicalTestNode(BaseNode):
@@ -12,3 +13,6 @@ class OrLogicalTestNode(BaseNode):
 
     def __str__(self):
         return "or"
+
+    def accept(self, visitor: GeneratorVisitor):
+        visitor.visitOrLogicalTest(self)

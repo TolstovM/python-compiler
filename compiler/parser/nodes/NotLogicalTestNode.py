@@ -1,4 +1,5 @@
 from .BaseNode import BaseNode
+from compiler import GeneratorVisitor
 
 
 class NotLogicalTestNode(BaseNode):
@@ -10,3 +11,6 @@ class NotLogicalTestNode(BaseNode):
 
     def __str__(self):
         return "not"
+
+    def accept(self, visitor: GeneratorVisitor):
+        visitor.visitNotLogicalTest(self)

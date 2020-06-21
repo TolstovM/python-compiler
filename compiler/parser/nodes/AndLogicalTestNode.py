@@ -1,4 +1,5 @@
 from .BaseNode import BaseNode
+from compiler import GeneratorVisitor
 
 
 class AndLogicalTestNode(BaseNode):
@@ -12,3 +13,6 @@ class AndLogicalTestNode(BaseNode):
 
     def __str__(self):
         return "and"
+
+    def accept(self, visitor: GeneratorVisitor):
+        visitor.visitAndLogicalTest(self)

@@ -6,7 +6,7 @@ import sys
 
 
 from antlr_denter.DenterHelper import DenterHelper
-from parser.PythonParser import PythonParser
+from compiler.parser.PythonParser import PythonParser
 
 
 def serializedATN():

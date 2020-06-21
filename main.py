@@ -1,19 +1,12 @@
-from parser import *
+from compiler.parser import *
 from antlr4 import *
-from ast import showAstTree
+from utils import showAstTree
+from compiler import GeneratorVisitor
+
 
 def main():
     text = '''
-a = 2
-b = 2
-if a == b:
-    print('hello')
-else:
-        max(a, b)
-        print('loh')
-    
-def max (x1, x2):
-    return x1
+a=3*8+(10-8/2)*3 == 42 and True
     '''
     inputStream = InputStream(text)
     lexer = PythonLexer(inputStream)
@@ -24,6 +17,9 @@ def max (x1, x2):
     print(cst.toStringTree())
     ast = PythonVisitor().visitProgram(cst)
     showAstTree(ast)
+    generatorVisitor = GeneratorVisitor()
+    generatorVisitor.visitProgram(ast)
+    print(generatorVisitor.program)
 
 
 if __name__ == '__main__':

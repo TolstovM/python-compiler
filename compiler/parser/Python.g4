@@ -4,7 +4,7 @@ tokens { INDENT, DEDENT, LINE_BREAK }
 
 @lexer::header{
 from antlr_denter.DenterHelper import DenterHelper
-from parser.PythonParser import PythonParser
+from compiler.parser.PythonParser import PythonParser
 }
 @lexer::members {
 class MyCoolDenter(DenterHelper):
@@ -73,7 +73,8 @@ small_stmt
     ;
 
 assign_part
-    : expr                                              # assignExpr
+    : logical_test                                      # logicalAssign
+    | expr                                              # assignExpr
     | func_call                                         # assignFuncCall
     ;
 
@@ -87,12 +88,14 @@ logical_test
     ;
 
 comparison
-    : comparison op=(LESS_THAN | GREATER_THAN | EQUALS | GT_EQ | LT_EQ | NOT_EQ_1 | NOT_EQ_2 /*| optional=NOT? IN | IS  optional=NOT?*/) comparison
+    : TRUE | FALSE
+    | comparison op=(LESS_THAN | GREATER_THAN | EQUALS | GT_EQ | LT_EQ | NOT_EQ_1 | NOT_EQ_2 /*| optional=NOT? IN | IS  optional=NOT?*/) comparison
     | expr
     ;
 
 expr
-    : op=(ADD | MINUS | NOT_OP) expr
+    : OPEN_PAREN expr CLOSE_PAREN
+    | op=(ADD | MINUS | NOT_OP) expr
     | expr op=(STAR | DIV | MOD | IDIV) expr
     | expr op=(ADD | MINUS) expr
     | expr op=AND_OP expr

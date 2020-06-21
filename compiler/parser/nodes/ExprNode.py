@@ -1,4 +1,5 @@
 from .BaseNode import BaseNode
+from compiler import GeneratorVisitor
 
 
 class ExprNode(BaseNode):
@@ -13,4 +14,9 @@ class ExprNode(BaseNode):
         self.children.append(rightNode)
 
     def __str__(self):
-        return str(self.op)
+        if self.op == '()':
+            return self.op
+        return str(self.op.text)
+
+    def accept(self, visitor: GeneratorVisitor):
+        visitor.visitExprNode(self)

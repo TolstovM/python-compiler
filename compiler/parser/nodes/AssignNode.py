@@ -1,4 +1,5 @@
 from .BaseNode import BaseNode
+from compiler import GeneratorVisitor
 
 
 class AssignNode(BaseNode):
@@ -12,3 +13,6 @@ class AssignNode(BaseNode):
 
     def __str__(self):
         return "assign"
+
+    def accept(self, visitor: GeneratorVisitor):
+        visitor.visitAssign(self)

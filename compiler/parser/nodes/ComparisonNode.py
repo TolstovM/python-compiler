@@ -1,4 +1,5 @@
 from .BaseNode import BaseNode
+from compiler import GeneratorVisitor
 
 
 class ComparisonNode(BaseNode):
@@ -13,3 +14,6 @@ class ComparisonNode(BaseNode):
 
     def __str__(self):
         return self.op.text
+
+    def accept(self, visitor: GeneratorVisitor):
+        visitor.visitComparison(self)

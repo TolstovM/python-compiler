@@ -121,6 +121,10 @@ class PythonVisitor(ParseTreeVisitor):
         printNode = PrintNode(paramNode)
         return printNode
 
+    # Visit a parse tree produced by PythonParser#logicalAssign.
+    def visitLogicalAssign(self, ctx: PythonParser.LogicalAssignContext):
+        return self.visit(ctx.logical_test())
+
     # Visit a parse tree produced by PythonParser#assignExpr.
     def visitAssignExpr(self, ctx: PythonParser.AssignExprContext):
         return self.visit(ctx.expr())
@@ -159,6 +163,10 @@ class PythonVisitor(ParseTreeVisitor):
     def visitComparison(self, ctx: PythonParser.ComparisonContext):
         if ctx.expr():
             return self.visit(ctx.expr())
+        elif ctx.TRUE():
+            return BaseNode(ctx.TRUE())
+        elif ctx.FALSE():
+            return BaseNode(ctx.FALSE())
         else:
             leftNode = self.visit(ctx.comparison(0))
             rightNode = self.visit(ctx.comparison(1))
@@ -168,7 +176,10 @@ class PythonVisitor(ParseTreeVisitor):
     # Visit a parse tree produced by PythonParser#expr.
     def visitExpr(self, ctx: PythonParser.ExprContext):
         exprNode = None
-        if not ctx.expr(1) and ctx.op:
+        if not ctx.expr(1) and ctx.OPEN_PAREN():
+            innerNode = self.visit(ctx.expr(0))
+            exprNode = ExprNode(None, innerNode, '()')
+        elif not ctx.expr(1) and ctx.op:
             innerNode = self.visit(ctx.expr(0))
             exprNode = ExprNode(None, innerNode, ctx.op)
         elif ctx.expr(1):
@@ -188,6 +199,7 @@ class PythonVisitor(ParseTreeVisitor):
         argsListNode = self.visit(ctx.argslist())
         funcCallNode = FuncCallNode(ctx.IDENTIFIER(), argsListNode)
         return funcCallNode
+
 
 
 
