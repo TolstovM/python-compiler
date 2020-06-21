@@ -13,4 +13,4 @@ class ExprNode(BaseNode):
         self.children.append(rightNode)
 
     def __str__(self):
-        return self.op
+        return str(self.op)

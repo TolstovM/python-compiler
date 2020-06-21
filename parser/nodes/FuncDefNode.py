@@ -3,12 +3,13 @@ from .BaseNode import BaseNode
 
 class FuncDefNode(BaseNode):
 
-    def __init__(self, argsListNode, suiteNode):
+    def __init__(self, argsListNode, suiteNode, funcName):
         super().__init__()
         self.argListNode = argsListNode
         self.suiteNode = suiteNode
+        self.funcName = funcName
         self.children.append(argsListNode)
         self.children.append(suiteNode)
 
     def __str__(self):
-        return "func def"
+        return "func def: " + str(self.funcName)

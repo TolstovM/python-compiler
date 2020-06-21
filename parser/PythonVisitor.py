@@ -75,7 +75,7 @@ class PythonVisitor(ParseTreeVisitor):
     def visitFuncdef(self, ctx:PythonParser.FuncdefContext):
         argListNode = self.visit(ctx.argslist())
         suiteNode = self.visit(ctx.suite())
-        funcDefNode = FuncDefNode(argListNode, suiteNode)
+        funcDefNode = FuncDefNode(argListNode, suiteNode, ctx.IDENTIFIER())
         return funcDefNode
 
     # Visit a parse tree produced by PythonParser#argslist.

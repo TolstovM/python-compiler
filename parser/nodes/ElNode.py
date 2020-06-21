@@ -9,4 +9,4 @@ class ElNode(BaseNode):
         self.children.append(suiteNode)
 
     def __str__(self):
-        return 'el'
+        return 'else'

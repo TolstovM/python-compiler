@@ -1,5 +1,6 @@
 from parser import *
 from antlr4 import *
+from ast import showAstTree
 
 def main():
     text = '''
@@ -22,7 +23,7 @@ def max (x1, x2):
     cst = parser.program()
     print(cst.toStringTree())
     ast = PythonVisitor().visitProgram(cst)
-    print(ast.toStringTree())
+    showAstTree(ast)
 
 
 if __name__ == '__main__':

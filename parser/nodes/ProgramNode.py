@@ -7,7 +7,7 @@ class ProgramNode(BaseNode):
         super().__init__()
 
     def __str__(self):
-        return "Program";
+        return "Program"
 
     def appendChild(self, childNode):
         self.children.append(childNode)

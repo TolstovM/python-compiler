@@ -10,4 +10,4 @@ class FuncCallNode(BaseNode):
         self.children.append(argsListNode)
 
     def __str__(self):
-        return 'func: ' + self.funcName
+        return 'func: ' + str(self.funcName)
