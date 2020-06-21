@@ -33,6 +33,7 @@ class PythonVisitor(ParseTreeVisitor):
         i = 0
         while ctx.stmt(i):
             suiteNode.appendChild(self.visit(ctx.stmt(i)))
+            i += 1
         return suiteNode
 
     # Visit a parse tree produced by PythonParser#elif_clause.

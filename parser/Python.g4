@@ -2,6 +2,30 @@ grammar Python;
 
 tokens { INDENT, DEDENT, LINE_BREAK }
 
+@lexer::header{
+from antlr_denter.DenterHelper import DenterHelper
+from parser.PythonParser import PythonParser
+}
+@lexer::members {
+class MyCoolDenter(DenterHelper):
+    def __init__(self, lexer, nl_token, indent_token, dedent_token, ignore_eof):
+        super().__init__(nl_token, indent_token, dedent_token, ignore_eof)
+        self.lexer: PythonLexer = lexer
+
+    def pull_token(self):
+        return super(PythonLexer, self.lexer).nextToken()
+
+denter = None
+
+def nextToken(self):
+    if not self.denter:
+        self.denter = self.MyCoolDenter(self, self.NL, PythonParser.INDENT, PythonParser.DEDENT, True)
+    return self.denter.next_token()
+
+}
+
+NL: ('\r'? '\n' ' '*);
+
 program: stmt* EOF;
 
 stmt
@@ -18,7 +42,7 @@ compound_stmt
 
 suite
     : simple_stmt                           # suiteInLine
-    | LINE_BREAK INDENT stmt+ DEDENT        # suiteBlock
+    | INDENT stmt+ DEDENT        # suiteBlock
     ;
 
 elif_clause
@@ -142,3 +166,4 @@ SHORT_STRING
 fragment RN
     : '\r'? '\n'
     ;
+
