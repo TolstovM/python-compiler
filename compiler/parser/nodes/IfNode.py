@@ -1,4 +1,6 @@
 from .BaseNode import BaseNode
+from compiler import GeneratorVisitor
+
 
 class IfNode(BaseNode):
 
@@ -14,3 +16,6 @@ class IfNode(BaseNode):
 
     def appendChild(self, node):
         self.children.append(node)
+
+    def accept(self, visitor: GeneratorVisitor):
+        visitor.visitIf(self)

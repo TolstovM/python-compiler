@@ -50,8 +50,8 @@ def serializedATN():
         buf.write("\2e\21\3\2\2\2fg\5\24\13\2gh\t\2\2\2h\23\3\2\2\2ij\7,")
         buf.write("\2\2jk\7+\2\2kt\5\26\f\2lt\5\36\20\2mn\7\5\2\2nt\5\20")
         buf.write("\t\2op\7\6\2\2pq\7%\2\2qr\t\3\2\2rt\7&\2\2si\3\2\2\2s")
-        buf.write("l\3\2\2\2sm\3\2\2\2so\3\2\2\2t\25\3\2\2\2uy\5\30\r\2v")
-        buf.write("y\5\34\17\2wy\5\36\20\2xu\3\2\2\2xv\3\2\2\2xw\3\2\2\2")
+        buf.write("l\3\2\2\2sm\3\2\2\2so\3\2\2\2t\25\3\2\2\2uy\5\34\17\2")
+        buf.write("vy\5\30\r\2wy\5\36\20\2xu\3\2\2\2xv\3\2\2\2xw\3\2\2\2")
         buf.write("y\27\3\2\2\2z{\b\r\1\2{\177\5\32\16\2|}\7\16\2\2}\177")
         buf.write("\5\30\r\5~z\3\2\2\2~|\3\2\2\2\177\u0088\3\2\2\2\u0080")
         buf.write("\u0081\f\4\2\2\u0081\u0082\7\r\2\2\u0082\u0087\5\30\r")
@@ -1262,17 +1262,17 @@ class PythonParser ( Parser ):
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,10,self._ctx)
             if la_ == 1:
-                localctx = PythonParser.LogicalAssignContext(self, localctx)
+                localctx = PythonParser.AssignExprContext(self, localctx)
                 self.enterOuterAlt(localctx, 1)
                 self.state = 115
-                self.logical_test(0)
+                self.expr(0)
                 pass
 
             elif la_ == 2:
-                localctx = PythonParser.AssignExprContext(self, localctx)
+                localctx = PythonParser.LogicalAssignContext(self, localctx)
                 self.enterOuterAlt(localctx, 2)
                 self.state = 116
-                self.expr(0)
+                self.logical_test(0)
                 pass
 
             elif la_ == 3:

@@ -73,8 +73,8 @@ small_stmt
     ;
 
 assign_part
-    : logical_test                                      # logicalAssign
-    | expr                                              # assignExpr
+    : expr                                              # assignExpr
+    | logical_test                                      # logicalAssign
     | func_call                                         # assignFuncCall
     ;
 

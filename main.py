@@ -6,7 +6,14 @@ from compiler import GeneratorVisitor
 
 def main():
     text = '''
-a=3*8+(10-8/2)*3 == 42 and True
+a = 100
+b = 30
+if a > b:
+    c = a
+else:
+    c = b
+print(c)
+print('Hello')
     '''
     inputStream = InputStream(text)
     lexer = PythonLexer(inputStream)

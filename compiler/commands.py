@@ -16,5 +16,8 @@ commands = {
     'push':     'PUSH',
     'load':     'LOAD',
     'store':    'STORE',
+    'jump_if':  'JUMP_IF',
+    'jump':     'JUMP',
+    'func':     'FUNC',
     'halt':     'HALT'
 }

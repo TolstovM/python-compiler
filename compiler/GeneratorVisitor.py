@@ -54,9 +54,36 @@ class GeneratorVisitor:
             self.program.append(commands['push'])
             self.program.append(commands[str(node)])
 
+    def visitIf(self, node: IfNode):
+        self.visit(node.logicalTestNode)
+        self.program.append(commands['jump_if'])
+        jumpToBlank = len(self.program)
+        self.program.append(None)
+
+        jumpsBlank = self._visitIfChild(node)
+
+        self.program[jumpToBlank] = len(self.program)
+        self.visit(node.suiteNode)
+        for idx in jumpsBlank:
+            self.program[idx] = len(self.program)
+
+    def visitSuite(self, node: SuiteNode):
+        for child in node.children:
+            self.visit(child)
+
+    def visitPrint(self, node: PrintNode):
+        if '\'' in str(node.children[0].value) or '\"' in str(node.children[0].value):
+            self.program.append(commands['push'])
+            self.program.append(str(node.children[0]).replace('\'', '').replace('\"', ''))
+        else:
+            self.visit(node.children[0])
+        self.program.append(commands['func'])
+        self.program.append('print')
+        self.program.append(1)
+
     def visit(self, node: BaseNode):
         if node:
-            node.accept(self)
+            return node.accept(self)
 
     def visitDefault(self, node):
         if not node:
@@ -70,3 +97,30 @@ class GeneratorVisitor:
         else:
             self.program.append(commands['load'])
             self.program.append(str(node))
+
+    def _visitIfChild(self, node: IfNode):
+        ifelNodes = [child for child in node.children if isinstance(child, IfelNode)]
+        elseNode = [child for child in node.children if isinstance(child, ElNode)]
+
+        jumpsToBlank = []
+        for child in ifelNodes:
+            self.visit(child.logicalTestNode)
+            self.program.append(commands['jump_if'])
+            jumpsToBlank.append(len(self.program))
+            self.program.append(None)
+
+        jumpsBlank = []
+        if elseNode:
+            self.visit(elseNode[0].suiteNode)
+            self.program.append(commands['jump'])
+            jumpsBlank.append(len(self.program))
+            self.program.append(None)
+
+        for i, child in enumerate(ifelNodes):
+            self.program[jumpsToBlank[i]] = len(self.program)
+            self.visit(child.suiteNode)
+            self.program.append(commands['jump'])
+            jumpsBlank.append(len(self.program))
+            self.program.append(None)
+
+        return jumpsBlank

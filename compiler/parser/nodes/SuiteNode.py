@@ -1,4 +1,5 @@
 from .BaseNode import BaseNode
+from compiler import GeneratorVisitor
 
 
 class SuiteNode(BaseNode):
@@ -11,3 +12,6 @@ class SuiteNode(BaseNode):
 
     def appendChild(self, node):
         self.children.append(node)
+
+    def accept(self, visitor: GeneratorVisitor):
+        visitor.visitSuite(self)

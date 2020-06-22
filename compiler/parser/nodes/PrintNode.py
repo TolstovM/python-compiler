@@ -1,4 +1,5 @@
 from .BaseNode import BaseNode
+from compiler import GeneratorVisitor
 
 
 class PrintNode(BaseNode):
@@ -10,3 +11,6 @@ class PrintNode(BaseNode):
 
     def __str__(self):
         return 'print'
+
+    def accept(self, visitor: GeneratorVisitor):
+        visitor.visitPrint(self)
