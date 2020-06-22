@@ -82,8 +82,8 @@ class PythonVisitor(ParseTreeVisitor):
     def visitArgsList(self, ctx: PythonParser.ArgslistContext):
         argListNode = ArgListNode()
         for child in ctx.children:
-            if child.symbol.text != ',':
-                argListNode.addChildren(BaseNode(child))
+            if str(child) != ',':
+                argListNode.addChildren(BaseNode(child.children[0]))
         return argListNode
 
     # Visit a parse tree produced by PythonParser#funcDef.
@@ -101,7 +101,7 @@ class PythonVisitor(ParseTreeVisitor):
         assignNode = AssignNode(identifierNode, assignPartNode)
         return assignNode
 
-    # Visit a parse tree produced by PythonParser#funcCall.
+    # # Visit a parse tree produced by PythonParser#funcCall.
     def visitFuncCall(self, ctx: PythonParser.FuncCallContext):
         return self.visit(ctx.func_call())
 

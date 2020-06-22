@@ -29,7 +29,7 @@ NL: ('\r'? '\n' ' '*);
 program: stmt* EOF;
 
 stmt
-    : simple_stmt
+    : simple_stmt (NL | EOF)
     | compound_stmt
     ;
 
@@ -58,24 +58,24 @@ funcdef
     ;
 
 argslist
-    : IDENTIFIER (COMMA IDENTIFIER)+    # argsList
+    : expr (COMMA expr)+    # argsList
     ;
 
 simple_stmt
-    : small_stmt (LINE_BREAK | EOF)
+    : small_stmt
     ;
 
 small_stmt
-    : IDENTIFIER op=ASSIGN assign_part                                                          # assign
+    : IDENTIFIER op=ASSIGN assign_part                                                        # assign
     | func_call                                                                                 # funcCall
     | RETURN argslist                                                                           # return
     | PRINT OPEN_PAREN (IDENTIFIER | SHORT_STRING) CLOSE_PAREN                                  # print
     ;
 
 assign_part
-    : expr                                              # assignExpr
+    : func_call                                         # assignFuncCall
+    | expr                                              # assignExpr
     | logical_test                                      # logicalAssign
-    | func_call                                         # assignFuncCall
     ;
 
 

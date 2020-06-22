@@ -152,6 +152,15 @@ class PythonListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by PythonParser#assignFuncCall.
+    def enterAssignFuncCall(self, ctx:PythonParser.AssignFuncCallContext):
+        pass
+
+    # Exit a parse tree produced by PythonParser#assignFuncCall.
+    def exitAssignFuncCall(self, ctx:PythonParser.AssignFuncCallContext):
+        pass
+
+
     # Enter a parse tree produced by PythonParser#assignExpr.
     def enterAssignExpr(self, ctx:PythonParser.AssignExprContext):
         pass
@@ -167,15 +176,6 @@ class PythonListener(ParseTreeListener):
 
     # Exit a parse tree produced by PythonParser#logicalAssign.
     def exitLogicalAssign(self, ctx:PythonParser.LogicalAssignContext):
-        pass
-
-
-    # Enter a parse tree produced by PythonParser#assignFuncCall.
-    def enterAssignFuncCall(self, ctx:PythonParser.AssignFuncCallContext):
-        pass
-
-    # Exit a parse tree produced by PythonParser#assignFuncCall.
-    def exitAssignFuncCall(self, ctx:PythonParser.AssignFuncCallContext):
         pass
 
 

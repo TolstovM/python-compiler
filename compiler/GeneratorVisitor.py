@@ -56,7 +56,6 @@ class GeneratorVisitor:
         self.visit(node.leftNode)
         self.visit(node.rightNode)
         if node.op:
-            self.program.append(commands['push'])
             self.program.append(commands[str(node)])
 
     def visitIf(self, node: IfNode):
