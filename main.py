@@ -6,14 +6,11 @@ from compiler import GeneratorVisitor
 
 def main():
     text = '''
-a = 100
-b = 30
-if a > b:
-    c = a
-else:
-    c = b
-print(c)
-print('Hello')
+a = 16
+b = 10
+while a > b:
+    a = a - 1
+    print(a)
     '''
     inputStream = InputStream(text)
     lexer = PythonLexer(inputStream)

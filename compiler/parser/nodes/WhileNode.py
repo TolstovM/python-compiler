@@ -1,4 +1,5 @@
 from .BaseNode import BaseNode
+from compiler import GeneratorVisitor
 
 
 class WhileNode(BaseNode):
@@ -12,3 +13,6 @@ class WhileNode(BaseNode):
 
     def __str__(self):
         return 'while'
+
+    def accept(self, visitor: GeneratorVisitor):
+        visitor.visitWhile(self)

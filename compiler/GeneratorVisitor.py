@@ -67,6 +67,20 @@ class GeneratorVisitor:
         for idx in jumpsBlank:
             self.program[idx] = len(self.program)
 
+    def visitWhile(self, node: WhileNode):
+        suiteStartPosition = len(self.program)
+        self.visit(node.logicalTestNode)
+        self.program.append(commands['not'])
+        self.program.append(commands['jump_if'])
+        jumpToEndBlank = len(self.program)
+        self.program.append(None)
+
+        self.visit(node.suiteNode)
+
+        self.program.append(commands['jump'])
+        self.program.append(suiteStartPosition)
+        self.program[jumpToEndBlank] = len(self.program)
+
     def visitSuite(self, node: SuiteNode):
         for child in node.children:
             self.visit(child)
