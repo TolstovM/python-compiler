@@ -6,11 +6,16 @@ from compiler import GeneratorVisitor
 
 def main():
     text = '''
-a = 16
-b = 10
-while a > b:
-    a = a - 1
-    print(a)
+res = pow(2, 8)
+print(res)
+
+def pow(a, b):
+    result = 1
+    i = 0
+    while b > i:
+        result = result * a
+        i = i + 1
+    return result
     '''
     inputStream = InputStream(text)
     lexer = PythonLexer(inputStream)

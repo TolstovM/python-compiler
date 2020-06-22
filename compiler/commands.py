@@ -19,5 +19,8 @@ commands = {
     'jump_if':  'JUMP_IF',
     'jump':     'JUMP',
     'func':     'FUNC',
+    'return':   'RET',
+    'call':     'CALL',
+    'start':    'START',
     'halt':     'HALT'
 }

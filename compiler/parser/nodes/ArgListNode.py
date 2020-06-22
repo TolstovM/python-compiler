@@ -1,4 +1,5 @@
 from .BaseNode import BaseNode
+from compiler import GeneratorVisitor
 
 
 class ArgListNode(BaseNode):
@@ -11,3 +12,6 @@ class ArgListNode(BaseNode):
 
     def addChildren(self, node):
         self.children.append(node)
+
+    def accept(self, visitor: GeneratorVisitor):
+        visitor.visitArgsList(self)

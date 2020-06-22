@@ -1,4 +1,5 @@
 from .BaseNode import BaseNode
+from compiler import GeneratorVisitor
 
 
 class FuncCallNode(BaseNode):
@@ -11,3 +12,6 @@ class FuncCallNode(BaseNode):
 
     def __str__(self):
         return 'func: ' + str(self.funcName)
+
+    def accept(self, visitor: GeneratorVisitor):
+        visitor.visitFuncCall(self)

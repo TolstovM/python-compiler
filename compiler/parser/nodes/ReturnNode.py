@@ -1,4 +1,5 @@
 from .BaseNode import BaseNode
+from compiler import GeneratorVisitor
 
 
 class ReturnNode(BaseNode):
@@ -10,3 +11,6 @@ class ReturnNode(BaseNode):
 
     def __str__(self):
         return 'return'
+
+    def accept(self, visitor: GeneratorVisitor):
+        visitor.visitReturn(self)
